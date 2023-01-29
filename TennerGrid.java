@@ -69,15 +69,17 @@ public class TennerGrid {
     }
 
     private boolean isValid(int row, int column, int value) {
-        consistencyChecks++;
+        
         // Check if the given value is already in the same row
         for (int i = 0; i < this.grid[row].length; i++) {
             if (this.grid[row][i] == value) {
+                consistencyChecks++;
                 return false;
             }
         }
         // Check if the given value is already in the connecting cells
         if ((row > 0 && this.grid[row - 1][column] == value) || (column > 0 && this.grid[row][column - 1] == value)) {
+            consistencyChecks++;
             return false;
         }
         // Check if the column sum is valid
@@ -86,6 +88,7 @@ public class TennerGrid {
             sum += this.grid[i][column];
         }
         if (sum + value > TennerGrid.columnSums[column]) {
+            consistencyChecks++;
             return false;
         }
         return true;
